@@ -1,7 +1,5 @@
 package luukhermans.nl.spyhunt.library;
 
-import java.util.List;
-
 /**
  * Created by Luuk on 7-2-2017.
  */
@@ -9,6 +7,18 @@ import java.util.List;
 public class Game {
 
     private Player currentPlayer;
-    private List<Player> playersList;
+    private Region currentRegion;
 
+    private static Game gameInstance;
+
+    public Game(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+
+        gameInstance = this;
+    }
+
+    public static Game getGameInstance() {
+        return gameInstance;
+    }
+    
 }
