@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "469478747429",
+    "firebase_url": "https://spyhunt-47340.firebaseio.com",
+    "project_id": "spyhunt-47340",
+    "storage_bucket": "spyhunt-47340.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469478747429:android:5ef71e811c9086fe",
+        "android_client_info": {
+          "package_name": "luukhermans.nl.spyhunt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "469478747429-fg2r2ebdcbdgc46oiakmv4gd88k02pmj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtexeDU7rreoKhU_XaBqhK8ugQroT3gU4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "469478747429-fg2r2ebdcbdgc46oiakmv4gd88k02pmj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
