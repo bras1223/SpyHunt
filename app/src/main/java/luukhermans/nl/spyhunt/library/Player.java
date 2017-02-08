@@ -5,4 +5,9 @@ package luukhermans.nl.spyhunt.library;
  */
 
 public class Player {
+
+    private String location;
+    private Integer privacyLevel;
+    private Integer score;
+
 }

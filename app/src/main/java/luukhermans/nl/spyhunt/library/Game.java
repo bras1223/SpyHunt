@@ -20,5 +20,5 @@ public class Game {
     public static Game getGameInstance() {
         return gameInstance;
     }
-    
+
 }
