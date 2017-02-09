@@ -1,5 +1,8 @@
 package luukhermans.nl.spyhunt;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +46,16 @@ public class Database {
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    region.editPlayer(dataSnapshot.getValue(Player.class));
+                    Player player = dataSnapshot.getValue(Player.class);
+                    Player currentPlayer = Game.getGameInstance().getCurrentPlayer();
+
+                    if(player.getUid().equals(currentPlayer.getUid())) {
+                        if(player.getLastExposedUidBy() != currentPlayer.getLastExposedUidBy()) {
+
+                            region.editPlayer(player);
+                        }
+                    }
+                    region.editPlayer(player);
                 }
 
                 @Override
@@ -95,4 +107,22 @@ public class Database {
     }
 
 
+    public void postOnWall(String msg) {
+        Log.d("Tests", "Testing graph API wall post");
+        try {
+            String response = mFacebook.request("me");
+            Bundle parameters = new Bundle();
+            parameters.putString("message", msg);
+            parameters.putString("description", "test test test");
+            response = mFacebook.request("me/feed", parameters,
+                    "POST");
+            Log.d("Tests", "got response: " + response);
+            if (response == null || response.equals("") ||
+                    response.equals("false")) {
+                Log.v("Error", "Blank response");
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

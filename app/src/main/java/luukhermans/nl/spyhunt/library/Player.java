@@ -2,6 +2,8 @@ package luukhermans.nl.spyhunt.library;
 
 import android.location.Location;
 
+import com.google.firebase.database.Exclude;
+
 /**
  * Created by Luuk on 7-2-2017.
  */
@@ -16,9 +18,16 @@ public class Player {
     private String name;
     private Double longtitude;
     private Double latitude;
+    private Double altitude;
+    private String lastExposedUidBy;
+
+    private String lastExposed;
+
     private String picture;
     private Integer privacyLevel;
     private Integer score;
+
+    private Double distance;
 
     public Player() {
 
@@ -40,6 +49,31 @@ public class Player {
     public void setLocation (Location location) {
         this.latitude = location.getLatitude();
         this.longtitude = location.getLongitude();
+    }
+
+    public String getLastExposed() {
+        return lastExposed;
+    }
+
+    public void setLastExposed(String lastExposed) {
+        this.lastExposed = lastExposed;
+    }
+
+    @Exclude
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    public String getLastExposedUidBy() {
+        return lastExposedUidBy;
+    }
+
+    public void setLastExposedUidBy(String lastExposedUidBy) {
+        this.lastExposedUidBy = lastExposedUidBy;
     }
 
     public void setLatitude(Double latitude) {
@@ -77,6 +111,10 @@ public class Player {
         this.score = score;
     }
 
+    public void setAltitude(Double altitude) {
+        this.altitude = altitude;
+    }
+
     public String getPicture() {
         return picture;
     }
@@ -89,8 +127,20 @@ public class Player {
         return score;
     }
 
+    public void updateScore(Integer score) {
+        this.score = this.score + score;
+    }
+
+    public void changeLevel(int level) {
+        this.privacyLevel = privacyLevel + level;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public double getAltitude() {
+        return altitude;
     }
 
 }
