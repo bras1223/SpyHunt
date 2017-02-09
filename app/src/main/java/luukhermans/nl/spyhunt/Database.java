@@ -107,7 +107,7 @@ public class Database {
     }
 
 
-    public void postOnWall(String msg) {
+/*    public void postOnWall(String msg) {
         Log.d("Tests", "Testing graph API wall post");
         try {
             String response = mFacebook.request("me");
@@ -124,5 +124,5 @@ public class Database {
         } catch(Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

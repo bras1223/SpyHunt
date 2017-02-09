@@ -16,6 +16,9 @@ import android.R.*;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.FacebookActivity;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -24,8 +27,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 import luukhermans.nl.spyhunt.R;
@@ -61,15 +67,56 @@ public class PlayerAdapter extends BaseAdapter {
                     .findViewById(R.id.playerName);
             textView.setText(players.get(pos).getName());
 
-            ImageView imageView = (ImageView) gridView.findViewById(R.id.playerIcon);
-            imageView.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
+            System.out.println(players.get(0).getPicture());
 
+            Bitmap bitmap = DownloadImage(players.get(pos).getPicture());
+            ImageView imageView = (ImageView) gridView
+                    .findViewById(R.id.playerImage);
+
+            //imageView.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
+            imageView.setImageBitmap(bitmap);
 
         }else {
             gridView = (View) convertView;
         }
 
         return gridView;
+    }
+
+    private Bitmap DownloadImage(String picture) {
+        Bitmap bitmap = null;
+        InputStream in = null;
+        try{
+            in = OpenHttpConnection(picture);
+            bitmap = BitmapFactory.decodeStream(in);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    private InputStream OpenHttpConnection(String picture) throws IOException {
+        InputStream in = null;
+        int response = -1;
+
+        URL url = new URL(picture.replace("\"", ""));
+        URLConnection conn = url.openConnection();
+
+        try{
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            httpConn.setAllowUserInteraction(false);
+            httpConn.setInstanceFollowRedirects(true);
+            httpConn.setRequestMethod("GET");
+            httpConn.connect();
+            response = httpConn.getResponseCode();
+            if(response == HttpURLConnection.HTTP_OK){
+                in = httpConn.getInputStream();
+            }
+        } catch (Exception ex){
+            throw new IOException("Error connecting");
+        }
+        return in;
     }
 
     @Override
@@ -86,5 +133,4 @@ public class PlayerAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
-
 }

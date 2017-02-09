@@ -25,15 +25,28 @@ public class NearbyActivity extends AppCompatActivity {
 
         Region region = Game.getGameInstance().getCurrentRegion();
 
+        ImageView imgProfile = (ImageView) findViewById(R.id.imgProfile);
+        ImageView imgUsers = (ImageView) findViewById(R.id.imgUsers);
+
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LeaderboardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imgUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                startActivity(intent);
+            }
+        });
+
         TextView lblRegion = (TextView) findViewById(R.id.lblRegion);
         lblRegion.setText("Region: " + region.getName());
 
-        btnPicture = (Button) findViewById(R.id.btnPicture);
-        btnPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), PlayerActivity.class));
-            }
-        });
+        //TODO OPEN CAMERA APP
     }
 }

@@ -1,8 +1,12 @@
 package luukhermans.nl.spyhunt;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,6 +43,11 @@ public class JoinGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
+
+/*        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            Intent intent = new Intent(JoinGameActivity.this, RegionActivity.class);
+            startActivity(intent);
+        }*/
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuthListner = new FirebaseAuth.AuthStateListener() {
@@ -112,9 +121,9 @@ public class JoinGameActivity extends AppCompatActivity {
                             Toast.makeText(JoinGameActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        LoginManager.getInstance().logInWithPublishPermissions(
+/*                        LoginManager.getInstance().logInWithPublishPermissions(
                                 fragmentOrActivity,
-                                Arrays.asList("publish_actions"));
+                                Arrays.asList("publish_actions"));*/
 
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         Player currentplayer = new Player(user.getUid(), user.getDisplayName(), user.getPhotoUrl().toString());

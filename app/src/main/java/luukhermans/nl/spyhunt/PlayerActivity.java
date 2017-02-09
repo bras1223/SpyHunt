@@ -31,8 +31,6 @@ public class PlayerActivity extends AppCompatActivity {
 
         gridView = (GridView) findViewById(R.id.player_grid_view);
 
-        System.out.println(players.get(0).getPicture().toString());
-
         gridView.setAdapter(new PlayerAdapter(this, players));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
