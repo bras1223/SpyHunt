@@ -17,9 +17,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:background="@android:color/black"
-            android:layout_marginEnd="16dp"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginStart="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/constraintLayout"
             android:layout_width="0dp"
@@ -58,7 +56,6 @@
                     android:layout_weight="1"
                     android:textSize="65sp"
                     android:textStyle="bold"
-                    android:textAlignment="textEnd"
                     android:textColor="@android:color/black"
                     android:elevation="0dp"
                     android:gravity="center" />
@@ -73,7 +70,6 @@
                     android:textSize="30sp"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
-                    android:textAlignment="textStart"
                     android:gravity="center"
                     android:paddingTop="20dp" />
             </LinearLayout>
