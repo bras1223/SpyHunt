@@ -16,11 +16,11 @@ public class LeaderboardActivity extends AppCompatActivity {
         Game game = Game.getGameInstance();
 
         TextView lblPoints = (TextView) findViewById(R.id.lblPoints);
-        lblPoints.setText(game.getCurrentPlayer().getScore());
+        lblPoints.setText(String.valueOf(game.getCurrentPlayer().getScore()));
 
-        Player player1 = new Player();
-        Player player2 = new Player();
-        Player player3 = new Player();
+        Player player1 = new Player("", "", "");
+        Player player2 = new Player("", "", "");
+        Player player3 = new Player("", "", "");
 
         for (Player p : Game.getGameInstance().getCurrentRegion().getPlayers().values()) {
             if (p.getScore() > player3.getScore()) {

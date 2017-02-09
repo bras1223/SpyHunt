@@ -26,6 +26,7 @@
 
         <activity android:name=".RegionActivity" />
         <activity android:name=".NearbyActivity"></activity>
+        <activity android:name=".LeaderboardActivity"></activity>
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
