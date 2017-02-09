@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import luukhermans.nl.spyhunt.library.Game;
 import luukhermans.nl.spyhunt.library.Player;
 import luukhermans.nl.spyhunt.library.PlayerAdapter;
 
@@ -26,13 +27,12 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
 
         players = new ArrayList<>();
-        players.add(new Player("ghfdngjdfgjn", "Henk", "dsfdgdfgdgds"));
-        players.add(new Player("ghfdfgjn", "Ans", "dsfdgdfdgds"));
-        players.add(new Player("ghfdngjdfg", "Jan", "dfdsgds"));
-        players.add(new Player("dngjdfgjn", "Piet", "dfghgfutyhds"));
-        players.add(new Player("dfgjn", "Hans", "dftyhds"));
+        players.addAll(Game.getGameInstance().getCurrentRegion().getPlayers().values());
 
         gridView = (GridView) findViewById(R.id.player_grid_view);
+
+        System.out.println(players.get(0).getPicture().toString());
+
         gridView.setAdapter(new PlayerAdapter(this, players));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
