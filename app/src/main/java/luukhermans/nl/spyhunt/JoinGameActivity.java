@@ -21,6 +21,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import luukhermans.nl.spyhunt.library.Game;
+import luukhermans.nl.spyhunt.library.Player;
+
 public class JoinGameActivity extends AppCompatActivity {
     private static final String TAG = "FacebookLogin";
 
@@ -43,8 +46,8 @@ public class JoinGameActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Intent intent = new Intent(JoinGameActivity.this, RegionActivity.class);
-                    startActivity(intent);
+
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -106,7 +109,12 @@ public class JoinGameActivity extends AppCompatActivity {
                             Toast.makeText(JoinGameActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        Player currentplayer = new Player(user.getUid(), user.getDisplayName(), user.getPhotoUrl().toString());
+                        Game.getGameInstance();
+                        Database.getDatabaseInstance().signinPlayer(currentplayer);
+                        Intent intent = new Intent(JoinGameActivity.this, RegionActivity.class);
+                        startActivity(intent);
                     }
                 });
     }
