@@ -28,6 +28,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         players = new ArrayList<>();
         players.addAll(Game.getGameInstance().getCurrentRegion().getPlayers().values());
+        //players.add(new Player("gfdgfdgfgd", "Guillaime", "gfgdg"));
 
         gridView = (GridView) findViewById(R.id.player_grid_view);
 

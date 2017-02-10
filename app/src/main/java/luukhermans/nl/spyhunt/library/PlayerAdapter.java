@@ -16,9 +16,12 @@ import android.R.*;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.facebook.FacebookActivity;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
 import com.facebook.Profile;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -69,11 +72,22 @@ public class PlayerAdapter extends BaseAdapter {
 
             System.out.println(players.get(0).getPicture());
 
-            Bitmap bitmap = DownloadImage(players.get(pos).getPicture());
+            String imageURL;
+            Bitmap bitmap = null;
+
+            imageURL = "http://graph.facebook.com/100003285084963/picture?type=large";
+            try {
+                InputStream in = (InputStream) new URL(imageURL).getContent();
+                bitmap = BitmapFactory.decodeStream(in);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //Bitmap bitmap = DownloadImage("http://graph.facebook.com/" + Profile.getCurrentProfile().getId() + "/picture?type=large");
             ImageView imageView = (ImageView) gridView
                     .findViewById(R.id.playerImage);
-
-            //imageView.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
+            imageView.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
+            //imageView.setImageURI(Uri.parse(players.get(pos).getPicture()));
             imageView.setImageBitmap(bitmap);
 
         }else {
