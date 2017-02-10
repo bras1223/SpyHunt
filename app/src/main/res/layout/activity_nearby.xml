@@ -156,5 +156,13 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <Button
+            android:text="Share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteY="514dp"
+            tools:layout_editor_absoluteX="146dp"
+            android:id="@+id/btnShare" />
+
     </android.support.constraint.ConstraintLayout>
 </RelativeLayout>

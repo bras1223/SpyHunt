@@ -1,5 +1,7 @@
 package luukhermans.nl.spyhunt.library;
 
+import android.content.Context;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +50,8 @@ public class Region {
             currentPlayer.setLastExposed(player.getUid());
             player.setLastExposedUidBy(currentPlayer.getUid());
 
-            Database data = Database.getDatabaseInstance();
+            Context context = null;
+            Database data = Database.getDatabaseInstance(context);
             data.update(player);
             data.update(currentPlayer);
             return true;

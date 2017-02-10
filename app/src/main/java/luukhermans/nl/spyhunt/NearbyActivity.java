@@ -18,7 +18,5 @@ public class NearbyActivity extends AppCompatActivity {
 
         TextView lblRegion = (TextView) findViewById(R.id.lblRegion);
         lblRegion.setText("Region: " + region.getName());
-
-
     }
 }

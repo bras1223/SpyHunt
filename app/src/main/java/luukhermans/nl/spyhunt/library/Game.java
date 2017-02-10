@@ -1,5 +1,6 @@
 package luukhermans.nl.spyhunt.library;
 
+import android.content.Context;
 import android.location.Location;
 
 import luukhermans.nl.spyhunt.Database;
@@ -41,7 +42,8 @@ public class Game {
 
     public void setLocation(Location location) {
         currentPlayer.setLocation(location);
-        Database.getDatabaseInstance().update(currentPlayer);
+        Context context = null;
+        Database.getDatabaseInstance(context).update(currentPlayer);
     }
 
     public Region getCurrentRegion() {
