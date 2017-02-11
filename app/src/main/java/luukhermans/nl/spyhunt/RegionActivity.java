@@ -1,14 +1,9 @@
 package luukhermans.nl.spyhunt;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -16,14 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import luukhermans.nl.spyhunt.library.Game;
+import luukhermans.nl.spyhunt.library.Player;
 import luukhermans.nl.spyhunt.library.Region;
 
 public class RegionActivity extends AppCompatActivity {
 
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_region);
+
         Region region = Game.getGameInstance().getCurrentRegion();
 
         TextView lblRegion = (TextView) findViewById(R.id.lblRegion);
@@ -55,38 +55,53 @@ public class RegionActivity extends AppCompatActivity {
         btnSpot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), NearbyActivity.class);
+                Intent intent = new Intent(RegionActivity.this, NearbyActivity.class);
                 startActivity(intent);
             }
         });
-    }
 
-    private boolean checkPermission(){
-        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return false;
+
+        // Acquire a reference to the system Location Manager
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+// Define a listener that responds to location updates
+        LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+
+                Game game = Game.getGameInstance();
+                Player currentPlayer = game.getCurrentPlayer();
+
+
+                currentPlayer.setLatitude(location.getLatitude());
+                currentPlayer.setLongtitude(location.getLongitude());
+                currentPlayer.setAltitude(location.getAltitude());
+                System.out.println("hallo");
+                Database.getDatabaseInstance(null).update(currentPlayer);
+
+
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            public void onProviderEnabled(String provider) {
+            }
+
+            public void onProviderDisabled(String provider) {
+            }
+        };
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
         }
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
-        return true;
-    }
-
-    private void buildAlertMessageNoGPS() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Your GPS seems to be disabled, do yo want to enable it?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-        final AlertDialog alert = builder.create();
-        alert.show();
     }
 }

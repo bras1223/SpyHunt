@@ -2,8 +2,6 @@ package luukhermans.nl.spyhunt.library;
 
 import android.location.Location;
 
-import com.google.firebase.database.Exclude;
-
 /**
  * Created by Luuk on 7-2-2017.
  */
@@ -38,8 +36,11 @@ public class Player {
         this.picture = picture;
         this. longtitude = 0D;
         this.latitude = 0D;
+        this.altitude = 0D;
         privacyLevel = 0;
         score = 0;
+        this.lastExposed = "";
+        this.lastExposedUidBy = "";
     }
 
     public void setName(String name) {
@@ -59,7 +60,6 @@ public class Player {
         this.lastExposed = lastExposed;
     }
 
-    @Exclude
     public Double getDistance() {
         return distance;
     }
