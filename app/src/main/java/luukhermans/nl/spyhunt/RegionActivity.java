@@ -1,13 +1,9 @@
 package luukhermans.nl.spyhunt;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -34,11 +30,20 @@ public class RegionActivity extends AppCompatActivity {
         lblRegion.setText("Region: " + region.getName());
 
         ImageView imgProfile = (ImageView) findViewById(R.id.imgProfile);
+        ImageView imgUsers = (ImageView) findViewById(R.id.imgUsers);
 
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegionActivity.this, LeaderboardActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LeaderboardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imgUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
                 startActivity(intent);
             }
         });

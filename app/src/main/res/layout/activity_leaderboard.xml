@@ -17,9 +17,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:background="@android:color/black"
-            android:layout_marginEnd="16dp"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginStart="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/constraintLayout"
             android:layout_width="0dp"
@@ -58,7 +56,6 @@
                     android:layout_weight="1"
                     android:textSize="65sp"
                     android:textStyle="bold"
-                    android:textAlignment="textEnd"
                     android:textColor="@android:color/black"
                     android:elevation="0dp"
                     android:gravity="center" />
@@ -73,7 +70,6 @@
                     android:textSize="30sp"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
-                    android:textAlignment="textStart"
                     android:gravity="center"
                     android:paddingTop="20dp" />
             </LinearLayout>
@@ -218,7 +214,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             android:id="@+id/linearLayout"
-            android:layout_height="45dp">
+            android:layout_height="60dp">
+
+            <ImageView
+                android:id="@+id/imgUsers"
+                android:layout_weight="1"
+                style="@style/ContestantImage"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/users" />
 
             <TextView
                 android:text="Region: Strijp-S"
@@ -229,6 +233,14 @@
                 android:gravity="center"
                 android:textColor="#FF473A"
                 android:textSize="16sp" />
+
+            <ImageView
+                android:layout_height="45dp"
+                android:id="@+id/imgProfile"
+                android:layout_weight="1"
+                style="@style/ContestantImage"
+                android:layout_width="45dp"
+                android:src="@drawable/user" />
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
